@@ -2,7 +2,7 @@ const {
 	setSwarmSize,
 	setParseRegex,
 	setParseMapper
-} = require('/store/actions.js');
+} = require('../actions.js');
 
 const apply = ({ dispatch }, { settings }) => {
 	dispatch(setSwarmSize(settings['swarmSize']));

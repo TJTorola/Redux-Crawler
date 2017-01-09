@@ -1,5 +1,5 @@
-const configureStore    = require('store/configure.js'),
-      { applySettings } = require('store/actions.js');
+const configureStore    = require('./store/configure.js'),
+      { applySettings } = require('./store/actions.js');
 
 module.exports = settings => horizon => {
 	const store = configureStore();
