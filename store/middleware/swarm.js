@@ -1,33 +1,34 @@
 const get = require('../../lib/get.js'),
       parseMatches = require('../../lib/parse.js');
 
-const { popHorizon } = require('../actions.js');
+const {
+	popHorizon,
+	finishCrawl,
+	appendResults
+} = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
-	const { 
-		horizon,
-		parse: {
-			regex,
-			mapper
-		}
-	} = getState();
-
-	const url      = horizon[0],
-	      callback = parseMatches(regex, mapper);
+	const { horizon } = getState(),
+	      url         = horizon[0],
+	      callback    = parseMatches(regex, mapper);
 
 	dispatch(popHorizon());
 
-	get(url, handleErr(dispatch), handleResponse(dispatch));
+	get(url, handleErr(dispatch), handleResponse(dispatch, getState));
 };
 
 const handleErr = dispatch => err => {
-	console.log(err);
-	// Finish Crawl
+	dispatch(finishCrawl());
 }
 
-const handleResponse = dispatch => res => {
-	console.log(res);
-	// Parse then send dispatch results
+const handleResponse = (dispatch, getState) => res => {
+	dispatch(finishCrawl());
+
+	const { parse } = getState(),
+	      { body }  = res,
+	      results   = parseMatches(body, parse);
+
+	dispatch(appendResults(results));
 }
 
 module.exports = store => next => action => {

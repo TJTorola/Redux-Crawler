@@ -34,5 +34,14 @@ module.exports = {
 
 	crawl: () => ({
 		type: "CRAWL"
+	}),
+
+	finishCrawl: () => ({
+		type: "FINISH_CRAWL"
+	}),
+
+	appendResults: results => ({
+		type: "APPEND_RESULTS"
+		results
 	})
 }
