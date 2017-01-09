@@ -4,7 +4,8 @@ const get = require('../../lib/get.js'),
 const {
 	popHorizon,
 	finishCrawl,
-	appendResults
+	appendResults,
+	appendHorizon
 } = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
@@ -23,10 +24,11 @@ const handleErr = dispatch => err => {
 const handleBody = (dispatch, getState) => body => {
 	dispatch(finishCrawl());
 
-	const { parse } = getState(),
-	      results   = parseMatches(body, parse);
+	const { parse }          = getState(),
+	      { results, links } = parseMatches(body, parse);
 
 	dispatch(appendResults(results));
+	dispatch(appendLinks(links));
 }
 
 module.exports = store => next => action => {

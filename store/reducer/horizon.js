@@ -4,6 +4,8 @@ module.exports = (state = [], action) => {
 			return action.horizon;
 		case "PUSH_HORIZON":
 			return [action.url, ...state];
+		case "APPEND_HORIZON":
+			return [...state, ...action.horizon];
 		case "POP_HORIZON":
 			const [first, ...rest] = state;
 			return rest;

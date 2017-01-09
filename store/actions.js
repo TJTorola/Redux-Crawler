@@ -32,6 +32,11 @@ module.exports = {
 		type: "POP_HORIZON"
 	}),
 
+	appendHorizon: horizon => ({
+		type: "APPEND_HORIZON",
+		horizon
+	}),
+
 	crawl: () => ({
 		type: "CRAWL"
 	}),
