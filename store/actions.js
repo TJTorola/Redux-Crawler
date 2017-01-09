@@ -22,5 +22,13 @@ module.exports = {
 	setHorizon: horizon => ({
 		type: "SET_HORIZON",
 		horizon
+	}),
+
+	pushHorizon: () => ({
+		type: "PUSH_HORIZON"
+	}),
+
+	popHorizon: () => ({
+		type: "POP_HORIZON"
 	})
 }
