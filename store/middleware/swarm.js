@@ -31,13 +31,18 @@ const handleBody = (dispatch, getState) => body => {
 		parse, 
 		horizon: { 
 			visited
-		} 
+		},
+		results: {
+			set
+		}
 	} = getState();
 
-	const { results, links } = parseMatches(body, parse),
+	const { found, links } = parseMatches(body, parse),
+	      uniqResults   = [...new Set(found)],
+	      newResults    = uniqResults.filter(result => !set.has(result)),
 	      unvistedLinks = links.filter(link => !visited.has(link));
 
-	dispatch(appendResults(results));
+	dispatch(appendResults(newResults));
 	dispatch(appendHorizon(unvistedLinks));
 }
 

@@ -1,7 +1,7 @@
 const main = require('./main.js');
 
 const settings = {
-	swarmSize: 20,
+	swarmSize: 1,
 	parseRegex: /\(?\b[0-9]{3}\)?[-. \\]?[0-9]{3}[-. \\]?[0-9]{4}\b/g,
 	parseMapper: results => results
 };
