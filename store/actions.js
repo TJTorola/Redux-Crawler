@@ -17,5 +17,10 @@ module.exports = {
 	setParseMapper: mapper => ({
 		type: "SET_PARSE_MAPPER",
 		mapper
+	}),
+
+	setHorizon: horizon => ({
+		type: "SET_HORIZON",
+		horizon
 	})
 }

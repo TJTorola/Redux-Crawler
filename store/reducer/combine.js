@@ -4,5 +4,6 @@ const { combineReducers } = require('redux'),
 
 module.exports = combineReducers({
 	parse,
-	swarm
+	swarm,
+	horizon
 });
