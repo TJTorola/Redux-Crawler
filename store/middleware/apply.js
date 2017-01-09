@@ -1,6 +1,8 @@
 const { applyMiddleware } = require('redux'),
-      settings = require('./settings.js');
+      settings = require('./settings.js'),
+      swarm    = require('./swarm.js');
 
 module.exports = applyMiddleware(
-	settings
+	settings,
+	swarm
 );
