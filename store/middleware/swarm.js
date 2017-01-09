@@ -9,8 +9,8 @@ const {
 } = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
-	const { horizon } = getState(),
-	      url         = horizon[0];
+	const { horizon: { found } } = getState(),
+	      url         = found[0];
 
 	get(url, handleBody(dispatch, getState), handleErr(dispatch));
 };
@@ -22,11 +22,18 @@ const handleErr = dispatch => err => {
 const handleBody = (dispatch, getState) => body => {
 	dispatch(finishCrawl());
 
-	const { parse }          = getState(),
-	      { results, links } = parseMatches(body, parse);
+	const { 
+		parse, 
+		horizon: { 
+			visited
+		} 
+	} = getState();
+
+	const { results, links } = parseMatches(body, parse),
+	      unvistedLinks = links.filter(link => !visited.has(link));
 
 	dispatch(appendResults(results));
-	dispatch(appendHorizon(links));
+	dispatch(appendHorizon(unvistedLinks));
 }
 
 module.exports = store => next => action => {
