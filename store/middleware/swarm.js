@@ -1,10 +1,23 @@
+const get = require('../../lib/get.js'),
+      parseMatches = require('../../lib/parse.js');
+
 const { popHorizon } = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
-	const { horizon } = getState(),
-	      url         = horizon[0];
+	const { 
+		horizon,
+		parse: {
+			regex,
+			mapper
+		}
+	} = getState();
+
+	const url      = horizon[0],
+	      callback = parseMatches(regex, mapper);
 
 	dispatch(popHorizon());
+
+	get(url, callback);
 }
 
 module.exports = store => next => action => {
