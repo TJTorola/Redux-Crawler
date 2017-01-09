@@ -17,7 +17,17 @@ const crawl = ({ dispatch, getState }) => {
 
 	dispatch(popHorizon());
 
-	get(url, callback);
+	get(url, handleErr(dispatch), handleResponse(dispatch));
+};
+
+const handleErr = dispatch => err => {
+	console.log(err);
+	// Finish Crawl
+}
+
+const handleResponse = dispatch => res => {
+	console.log(res);
+	// Parse then send dispatch results
 }
 
 module.exports = store => next => action => {
