@@ -1,5 +1,6 @@
 const configureStore = require('./store/configure.js'),
-      render         = require('./lib/render.js');
+      render         = require('./lib/render.js'),
+      watch          = require('./lib/watch.js');
 
 const {
 	applySettings,
@@ -7,13 +8,14 @@ const {
 } = require('./store/actions.js');
 
 module.exports = settings => horizon => {
+	// Init and configure store
 	const store = configureStore();
-
 	store.dispatch(applySettings(settings));
 
+	// Subscribe render and watcher functions
 	store.subscribe(render(store));
+	store.subscribe(watch(store));
 
-	// listen with stack watcher
-
+	// Start crawl by setting the horizon
 	store.dispatch(setHorizon(horizon));
 }
