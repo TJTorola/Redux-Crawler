@@ -1,3 +1,6 @@
-const { applyMiddleware } = require('redux');
+const { applyMiddleware } = require('redux'),
+      settings = require('./settings.js');
 
-module.exports = applyMiddleware();
+module.exports = applyMiddleware(
+	settings
+);
