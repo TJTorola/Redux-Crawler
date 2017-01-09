@@ -1,7 +1,7 @@
 module.exports = (state = null, action) => {
 	switch (action.type) {
 		case "SET_HORIZON":
-			return action.horizon.reducer((next, url) => ({
+			return action.horizon.reduce((next, url) => ({
 				url, next
 			}), null);
 
@@ -12,7 +12,7 @@ module.exports = (state = null, action) => {
 			};
 
 		case "APPEND_HORIZON":
-			return action.horizon.reducer((next, url) => ({
+			return action.horizon.reduce((next, url) => ({
 				url, next
 			}), state);
 
