@@ -7,6 +7,7 @@ module.exports = (state = [], action) => {
 		case "APPEND_HORIZON":
 			return [...state, ...action.horizon];
 		case "POP_HORIZON":
+		case "CRAWL":
 			const [first, ...rest] = state;
 			return rest;
 	}

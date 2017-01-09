@@ -12,8 +12,6 @@ const crawl = ({ dispatch, getState }) => {
 	const { horizon } = getState(),
 	      url         = horizon[0];
 
-	dispatch(popHorizon());
-
 	get(url, handleBody(dispatch, getState), handleErr(dispatch));
 };
 
