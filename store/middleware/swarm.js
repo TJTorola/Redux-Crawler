@@ -9,8 +9,13 @@ const {
 } = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
-	const { horizon: { found } } = getState(),
-	      url         = found[0];
+	const { 
+		horizon: { 
+			found: {
+				url 
+			} 
+		}
+	} = getState();
 
 	get(url, handleBody(dispatch, getState), handleErr(dispatch));
 };
