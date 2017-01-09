@@ -1,9 +1,9 @@
 const main = require('./main.js');
 
 const settings = {
-	runners: 20,
-	regex: /\(?\b[0-9]{3}\)?[-. \\]?[0-9]{3}[-. \\]?[0-9]{4}\b/g,
-	parser: val => val
+	swarmSize: 20,
+	parseRegex: /\(?\b[0-9]{3}\)?[-. \\]?[0-9]{3}[-. \\]?[0-9]{4}\b/g,
+	parseMapper: val => val
 };
 
 const rootUrl = process.argv[2];
