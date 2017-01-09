@@ -1,6 +1,10 @@
-const configureStore    = require('./store/configure.js'),
-      { applySettings } = require('./store/actions.js'),
-      render            = require('./lib/render.js');
+const configureStore = require('./store/configure.js'),
+      render         = require('./lib/render.js');
+
+const {
+	applySettings,
+	setHorizon
+} = require('./store/actions.js');
 
 module.exports = settings => horizon => {
 	const store = configureStore();
@@ -10,5 +14,6 @@ module.exports = settings => horizon => {
 	store.subscribe(render(store));
 
 	// listen with stack watcher
-	// send horizon to start process
+
+	store.dispatch(setHorizon(horizon));
 }

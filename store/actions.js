@@ -30,5 +30,9 @@ module.exports = {
 
 	popHorizon: () => ({
 		type: "POP_HORIZON"
+	}),
+
+	crawl: () => ({
+		type: "CRAWL"
 	})
 }
