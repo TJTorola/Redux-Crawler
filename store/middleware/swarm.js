@@ -28,7 +28,7 @@ const handleBody = (dispatch, getState) => body => {
 	      { results, links } = parseMatches(body, parse);
 
 	dispatch(appendResults(results));
-	dispatch(appendLinks(links));
+	dispatch(appendHorizon(links));
 }
 
 module.exports = store => next => action => {
