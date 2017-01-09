@@ -41,10 +41,6 @@ module.exports = {
 		type: "CRAWL"
 	}),
 
-	occupyCrawler: () => ({
-		type: "OCCUPY_CRAWLER"
-	}),
-
 	finishCrawl: () => ({
 		type: "FINISH_CRAWL"
 	}),
