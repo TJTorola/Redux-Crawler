@@ -7,4 +7,6 @@ const settings = {
 };
 
 const rootUrl = process.argv[2];
+if (!rootUrl) throw "No Horizon Provided.";
+
 main(settings)([rootUrl]);

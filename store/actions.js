@@ -41,7 +41,7 @@ module.exports = {
 	}),
 
 	appendResults: results => ({
-		type: "APPEND_RESULTS"
+		type: "APPEND_RESULTS",
 		results
 	})
 }

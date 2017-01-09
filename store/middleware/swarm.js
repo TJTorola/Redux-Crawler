@@ -9,23 +9,21 @@ const {
 
 const crawl = ({ dispatch, getState }) => {
 	const { horizon } = getState(),
-	      url         = horizon[0],
-	      callback    = parseMatches(regex, mapper);
+	      url         = horizon[0];
 
 	dispatch(popHorizon());
 
-	get(url, handleErr(dispatch), handleResponse(dispatch, getState));
+	get(url, handleBody(dispatch, getState), handleErr(dispatch));
 };
 
 const handleErr = dispatch => err => {
 	dispatch(finishCrawl());
 }
 
-const handleResponse = (dispatch, getState) => res => {
+const handleBody = (dispatch, getState) => body => {
 	dispatch(finishCrawl());
 
 	const { parse } = getState(),
-	      { body }  = res,
 	      results   = parseMatches(body, parse);
 
 	dispatch(appendResults(results));
