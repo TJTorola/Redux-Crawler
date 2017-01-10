@@ -13,7 +13,7 @@ const crawl = ({ dispatch, getState }) => {
 		horizon: { 
 			found: {
 				url 
-			} 
+			}
 		}
 	} = getState();
 
@@ -25,12 +25,11 @@ const handleErr = dispatch => err => {
 }
 
 const handleBody = (dispatch, getState) => body => {
-	dispatch(finishCrawl());
-
 	const { 
 		parse, 
 		horizon: { 
-			visited
+			visited,
+			count
 		},
 		results: {
 			set
@@ -40,10 +39,15 @@ const handleBody = (dispatch, getState) => body => {
 	const { found, links } = parseMatches(body, parse),
 	      uniqResults   = [...new Set(found)],
 	      newResults    = uniqResults.filter(result => !set.has(result)),
-	      unvistedLinks = links.filter(link => !visited.has(link));
+	      uniqLinks     = [...new Set(links)],
+	      unvistedLinks = uniqLinks.filter(link => !visited.has(link));
 
 	dispatch(appendResults(newResults));
-	dispatch(appendHorizon(unvistedLinks));
+	if (count < 100) {
+		dispatch(appendHorizon(unvistedLinks));
+	}
+
+	dispatch(finishCrawl());
 }
 
 module.exports = store => next => action => {
