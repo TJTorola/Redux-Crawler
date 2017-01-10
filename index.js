@@ -1,12 +1,7 @@
-const main = require('./main.js');
+const main   = require('./main.js'),
+      config = require('./config.js'),
+      rootUrl = process.argv[2];
 
-const settings = {
-	swarmSize: 16,
-	parseRegex: /\(?\b[0-9]{3}\)?[-. \\]?[0-9]{3}[-. \\]?[0-9]{4}\b/g,
-	parseMapper: results => results
-};
-
-const rootUrl = process.argv[2];
 if (!rootUrl) throw "No Horizon Provided.";
 
-main(settings)([rootUrl]);
+main(config)([rootUrl]);
