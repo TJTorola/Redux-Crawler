@@ -17,10 +17,10 @@ const crawl = ({ dispatch, getState }) => {
 		}
 	} = getState();
 
-	get(url, handleBody(dispatch, getState), handleErr(dispatch));
+	get(url, handleBody(dispatch, getState), handleErr(url, dispatch));
 };
 
-const handleErr = dispatch => err => {
+const handleErr = (url, dispatch) => err => {
 	dispatch(finishCrawl());
 }
 

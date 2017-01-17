@@ -12,11 +12,8 @@ const mapper = result => {
 // phone        : \(?\b[0-9]{3}\)?[-. \\]?[0-9]{3}[-. \\]?[0-9]{4}\b
 
 module.exports = {
-	swarmSize: 16,
-
-	maxHorizon: 100,
-
-	parseRegex: /\(?\b[0-9]{3}\)?[-. \\][0-9]{3}[-. \\][0-9]{4}\b/g,
-
-	parseMapper: results => results.map(mapper)
+	swarmSize    : 16,
+	horizonLimit : 100,
+	parseRegex   : /\(?\b[0-9]{3}\)?[-. \\]?[0-9]{3}[-. \\]?[0-9]{4}\b/g,
+	parseMapper  : results => results.map(mapper)
 };
