@@ -24,6 +24,11 @@ module.exports = {
 		horizon
 	}),
 
+	setHorizonLimit: limit => ({
+		type: "SET_HORIZON_LIMIT",
+		limit
+	}),
+
 	pushHorizon: () => ({
 		type: "PUSH_HORIZON"
 	}),

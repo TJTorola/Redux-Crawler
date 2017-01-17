@@ -29,7 +29,8 @@ const handleBody = (dispatch, getState) => body => {
 		parse, 
 		horizon: { 
 			visited,
-			count
+			count,
+			limit
 		},
 		results: {
 			set
@@ -43,7 +44,7 @@ const handleBody = (dispatch, getState) => body => {
 	      unvistedLinks = uniqLinks.filter(link => !visited.has(link));
 
 	dispatch(appendResults(newResults));
-	if (count < 100) {
+	if (!limit || count < limit) {
 		dispatch(appendHorizon(unvistedLinks));
 	}
 
