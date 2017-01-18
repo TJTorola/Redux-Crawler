@@ -1,7 +1,7 @@
 const mapper = {
 	phone(results) {
 		const phoneNumber = number => {
-			const stripped = result.replace(/[-.\(\)\\ ]/g, ''),
+			const stripped = number.replace(/[-.\(\)\\ ]/g, ''),
 			      areacode = stripped.slice(0, 3),
 			      prefix   = stripped.slice(3, 6),
 			      postfix  = stripped.slice(6);
@@ -22,8 +22,9 @@ const regex = {
 };
 
 module.exports = {
-	swarmSize    : 16,
-	horizonLimit : 100,
-	parseRegex   : regex['email'],
-	parseMapper  : mapper['basic']
+	swarmSize     : 40,
+	horizonLimit  : false,
+	parseRegex    : regex['phoneStrict'],
+	parseMapper   : mapper['basic'],
+	targetResults : 100
 };

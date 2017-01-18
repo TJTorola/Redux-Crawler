@@ -29,6 +29,11 @@ module.exports = {
 		limit
 	}),
 
+	setTargetResults: target => ({
+		type: "SET_TARGET_RESULTS",
+		target
+	}),
+
 	pushHorizon: () => ({
 		type: "PUSH_HORIZON"
 	}),

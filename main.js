@@ -18,5 +18,4 @@ module.exports = settings => horizon => {
 
 	// Start crawl by setting the horizon
 	store.dispatch(setHorizon(horizon));
-	// store.dispatch({ type: "CRAWL" });
 };
