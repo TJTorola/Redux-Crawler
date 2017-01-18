@@ -24,7 +24,7 @@ const handleErr = (url, dispatch) => err => {
 	dispatch(finishCrawl());
 }
 
-const handleBody = (dispatch, getState) => body => {
+const handleBody = (dispatch, getState) => (body, uri) => {
 	const { 
 		parse, 
 		horizon: { 
@@ -37,11 +37,11 @@ const handleBody = (dispatch, getState) => body => {
 		}
 	} = getState();
 
-	const { found, links } = parseMatches(body, parse),
-	      uniqResults   = [...new Set(found)],
-	      newResults    = uniqResults.filter(result => !set.has(result)),
-	      uniqLinks     = [...new Set(links)],
-	      unvistedLinks = uniqLinks.filter(link => !visited.has(link));
+	const { found, links } = parseMatches(body, uri, parse),
+	      uniqResults      = [...new Set(found)],
+	      newResults       = uniqResults.filter(result => !set.has(result)),
+	      uniqLinks        = [...new Set(links)],
+	      unvistedLinks    = uniqLinks.filter(link => !visited.has(link));
 
 	dispatch(appendResults(newResults));
 	if (!limit || count < limit) {

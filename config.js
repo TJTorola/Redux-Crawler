@@ -1,12 +1,13 @@
 const mapper = {
 	phone(results) {
 		const phoneNumber = number => {
-			const stripped = number.replace(/[-.\(\)\\ ]/g, ''),
-			      areacode = stripped.slice(0, 3),
-			      prefix   = stripped.slice(3, 6),
-			      postfix  = stripped.slice(6);
+			const stripped  = number.replace(/[-.\(\)\\ ]/g, ''),
+			      areacode  = stripped.slice(0, 3),
+			      prefix    = stripped.slice(3, 6),
+			      postfix   = stripped.slice(6),
+			      certainty = ((number.length - 10) * .25);
 
-			return `(${ areacode }) ${ prefix }-${ postfix }`;
+			return `(${ areacode }) ${ prefix }-${ postfix } Confidence: ${ certainty }`;
 		}
 
 		return results.map(phoneNumber);
@@ -22,9 +23,9 @@ const regex = {
 };
 
 module.exports = {
-	swarmSize     : 40,
-	horizonLimit  : false,
-	parseRegex    : regex['email'],
-	parseMapper   : mapper['basic'],
-	targetResults : 100
+	swarmSize     : 4,
+	horizonLimit  : 5000,
+	parseRegex    : regex['phone'],
+	parseMapper   : mapper['phone'],
+	targetResults : 1000
 };

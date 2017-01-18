@@ -2,7 +2,8 @@ const {
 	setSwarmSize,
 	setParseRegex,
 	setParseMapper,
-	setHorizonLimit
+	setHorizonLimit,
+	setTargetResults
 } = require('../actions.js');
 
 const apply = ({ dispatch }, { settings }) => {
@@ -10,6 +11,7 @@ const apply = ({ dispatch }, { settings }) => {
 	dispatch(setParseRegex(settings['parseRegex']));
 	dispatch(setParseMapper(settings['parseMapper']));
 	dispatch(setHorizonLimit(settings['horizonLimit']));
+	dispatch(setTargetResults(settings['targetResults']));
 }
 
 module.exports = store => next => action => {
