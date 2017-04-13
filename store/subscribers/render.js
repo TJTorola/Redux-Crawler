@@ -51,7 +51,7 @@ module.exports = ({ getState }) => {
 		}
 	}
 
-	return _.throttle(render, 10);
+	return _.throttle(render, 30);
 }
 
 // EX:

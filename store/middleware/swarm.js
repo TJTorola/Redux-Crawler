@@ -1,5 +1,5 @@
-const get = require('../../lib/get.js'),
-      parseMatches = require('../../lib/parse.js');
+const request = require('request-promise');
+const parseMatches = require('../../lib/parse.js');
 
 const {
 	finishCrawl,
@@ -12,7 +12,10 @@ const crawl = ({ dispatch, getState }) => {
 	const { horizon } = getState();
   const url = horizon.set.first()
 
-	get(url, handleBody(dispatch, getState), handleErr(url, dispatch));
+  request({ url, timeout: 500 })
+    .then(handleBody(dispatch, getState))
+    .catch(handleErr(url, dispatch));
+
   dispatch(crawlUrl(url));
 };
 

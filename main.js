@@ -1,6 +1,6 @@
 const configureStore = require('./store/configure.js'),
-      render         = require('./lib/render.js'),
-      watch          = require('./lib/watch.js');
+      render         = require('./store/subscribers/render.js'),
+      watch          = require('./store/subscribers/watch.js');
 
 const {
 	applySettings,

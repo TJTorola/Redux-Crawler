@@ -1,6 +1,6 @@
 const {
 	crawl
-} = require('../store/actions.js');
+} = require('../actions.js');
 
 module.exports = ({ dispatch, getState }) => () => {
 	const {
