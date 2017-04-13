@@ -2,7 +2,6 @@ const get = require('../../lib/get.js'),
       parseMatches = require('../../lib/parse.js');
 
 const {
-	popHorizon,
 	finishCrawl,
 	appendResults,
 	appendHorizon,
