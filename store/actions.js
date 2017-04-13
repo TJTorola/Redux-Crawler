@@ -47,13 +47,13 @@ module.exports = {
 		horizon
 	}),
 
-	appendVisited: horizon => ({
-		type: "APPEND_VISITED",
-		horizon
-	}),
-
 	crawl: () => ({
 		type: "CRAWL"
+	}),
+
+	crawlUrl: url => ({
+		type: "CRAWL_URL",
+		url,
 	}),
 
 	finishCrawl: () => ({

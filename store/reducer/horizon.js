@@ -1,45 +1,21 @@
 const Immutable = require('immutable');
 const { combineReducers } = require('redux');
 
-const count = (state = 0, action) => {
-	switch (action.type) {
+const set = (state = Immutable.Set(), action) => {
+  switch (action.type) {
+    case "APPEND_HORIZON":
 		case "SET_HORIZON":
-			return action.horizon.length;
+			return state.withMutations(set => (
+        action.horizon.reduce((acc, url) => (
+          acc.add(url)
+        ), set)
+      ))
 
 		case "PUSH_HORIZON":
-			return state + 1;
+			return state.add(action.url);
 
-		case "APPEND_HORIZON":
-			return state + action.horizon.length;
-
-		case "POP_HORIZON":
-		case "CRAWL":
-			return state - 1;
-	}
-	return state;
-};
-
-const found = (state = null, action) => {
-	switch (action.type) {
-		case "SET_HORIZON":
-			return action.horizon.reduce((next, url) => ({
-				url, next
-			}), null);
-
-		case "PUSH_HORIZON":
-			return {
-				url: action.url,
-				next: state
-			};
-
-		case "APPEND_HORIZON":
-			return action.horizon.reduce((next, url) => ({
-				url, next
-			}), state);
-
-		case "POP_HORIZON":
-		case "CRAWL":
-			return state && state.next;
+    case "CRAWL_URL":
+      return state.delete(action.url);
 	}
 	return state;
 };
@@ -54,21 +30,14 @@ const limit = (state = null, action) => {
 
 const visited = (state = Immutable.Set(), action) => {
 	switch (action.type) {
-		case "PUSH_HORIZON":
+		case "CRAWL_URL":
 			return state.add(action.url);
-
-		case "SET_HORIZON":
-		case "APPEND_VISITED":
-			return action.horizon.reduce((acc, url) => (
-				acc.add(url)
-			), state);
 	}
 	return state;
 };
 
 module.exports = combineReducers({
-	found,
+	set,
 	visited,
-	count,
 	limit
 });

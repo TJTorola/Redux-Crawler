@@ -2,7 +2,7 @@ const { combineReducers } = require('redux')
 
 const occupied = (state = 0, action) => {
 	switch (action.type) {
-		case "CRAWL":
+		case "CRAWL_URL":
 			return state + 1;
 		case "FINISH_CRAWL":
 			return state - 1;

@@ -5,19 +5,15 @@ const {
 	finishCrawl,
 	appendResults,
 	appendHorizon,
-  appendVisited,
+  crawlUrl,
 } = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
-	const {
-		horizon: {
-			found: {
-				url
-			}
-		}
-	} = getState();
+	const { horizon } = getState();
+  const url = horizon.set.first()
 
 	get(url, handleBody(dispatch, getState), handleErr(url, dispatch));
+  dispatch(crawlUrl(url));
 };
 
 const handleErr = (url, dispatch) => err => {
@@ -27,27 +23,21 @@ const handleErr = (url, dispatch) => err => {
 const handleBody = (dispatch, getState) => (body, uri) => {
 	const {
 		parse,
-		horizon: {
-			visited,
-			count,
-			limit
-		},
-		results: {
-			set
-		}
+		horizon,
+		results,
 	} = getState();
 
 	const { found, links } = parseMatches(body, uri, parse),
 	      uniqResults      = [...new Set(found)],
-	      newResults       = uniqResults.filter(result => !set.has(result)),
+	      newResults       = uniqResults.filter(result => !results.set.has(result)),
 	      uniqLinks        = [...new Set(links)],
-	      unvistedLinks    = uniqLinks.filter(link => !visited.has(link));
+	      unvisitedLinks    = uniqLinks.filter(link => (
+          !horizon.visited.has(link) && !horizon.set.has(link)
+        ));
+        debugger;
 
 	dispatch(appendResults(newResults));
-  dispatch(appendVisited(unvistedLinks));
-	if (!limit || count < limit) {
-		dispatch(appendHorizon(unvistedLinks));
-	}
+  dispatch(appendHorizon(unvisitedLinks));
 
 	dispatch(finishCrawl());
 }
