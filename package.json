@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "immutable": "^3.8.1",
+    "lodash": "^4.17.4",
     "redux": "^3.6.0",
     "request": "^2.79.0"
   },

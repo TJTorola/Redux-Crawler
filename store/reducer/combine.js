@@ -1,8 +1,8 @@
 const { combineReducers } = require('redux'),
-      parse   = require('./parse/combine.js'),
-      swarm   = require('./swarm/combine.js'),
-      horizon = require('./horizon/combine.js'),
-      results = require('./results/combine.js');
+      parse   = require('./parse.js'),
+      swarm   = require('./swarm.js'),
+      horizon = require('./horizon.js'),
+      results = require('./results.js');
 
 module.exports = combineReducers({
 	parse,

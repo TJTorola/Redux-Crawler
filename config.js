@@ -23,9 +23,9 @@ const regex = {
 };
 
 module.exports = {
-	swarmSize     : 10,
+	swarmSize     : 20,
 	horizonLimit  : 10000,
-	parseRegex    : regex['phone'],
+	parseRegex    : regex['phoneStrict'],
 	parseMapper   : mapper['phone'],
-	targetResults : 1000
+	targetResults : 10000
 };
