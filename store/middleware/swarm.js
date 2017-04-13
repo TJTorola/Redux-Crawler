@@ -6,13 +6,14 @@ const {
 	appendResults,
 	appendHorizon,
   crawlUrl,
+  appendError,
 } = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
 	const { horizon } = getState();
   const url = horizon.set.first()
 
-  request({ url, timeout: 500 })
+  request({ url })
     .then(handleBody(dispatch, getState))
     .catch(handleErr(url, dispatch));
 
@@ -20,6 +21,11 @@ const crawl = ({ dispatch, getState }) => {
 };
 
 const handleErr = (url, dispatch) => err => {
+  const errMessage = (err.statusCode)
+    ? `Error: ${err.statusCode} - ${url}`
+    : `${err.message} - ${url}`;
+
+  dispatch(appendError(errMessage));
 	dispatch(finishCrawl());
 }
 
@@ -37,7 +43,6 @@ const handleBody = (dispatch, getState) => (body, uri) => {
 	      unvisitedLinks    = uniqLinks.filter(link => (
           !horizon.visited.has(link) && !horizon.set.has(link)
         ));
-        debugger;
 
 	dispatch(appendResults(newResults));
   dispatch(appendHorizon(unvisitedLinks));

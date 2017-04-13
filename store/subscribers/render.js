@@ -2,12 +2,16 @@ const _ = require('lodash');
 
 const clear = () => process.stdout.write('\033[2J');
 
-const renderResults = (idx, results) => {
+const renderList = (idx, list) => {
 	if (idx < 0) return;
-	if (!results) return;
+	if (!list) {
+		renderList(idx - 1, null);
+		console.log('');
+		return;
+	}
 
-	renderResults(idx - 1, results.next);
-	console.log(results.val);
+	renderList(idx - 1, list.next);
+	console.log(list.val);
 }
 
 const renderAllResults = (results) => {
@@ -21,32 +25,31 @@ module.exports = ({ getState }) => {
 
 	const render = () => {
 		const {
-			results: {
-				list,
-				set,
-				target,
-			},
+			results,
 			recents,
 			horizon,
+			errors,
 			swarm: {
 				occupied
 			}
 		} = getState();
 
-		if (target > set.size) {
+		if (results.target > results.set.size) {
 			clear();
-			renderResults(20, list);
 
+			renderList(10, errors);
+			console.log("-------------------------------------");
+			renderList(20, results.list);
 			console.log("-------------------------------------");
 			console.log(`Crawler Count : ${ occupied }`);
 			console.log(`Horizon Size  : ${ horizon.set.size }`);
 			console.log(`Visited Count : ${ horizon.visited.size }`);
-			console.log(`Result Count  : ${ set.size }`);
+			console.log(`Result Count  : ${ results.set.size }`);
 		}
 
-		if (target <= set.size && !finished) {
+		if (results.target <= results.set.size && !finished) {
 			clear();
-			renderAllResults(list);
+			renderAllResults(results.list);
 			finished = true;
 		}
 	}

@@ -63,5 +63,10 @@ module.exports = {
 	appendResults: results => ({
 		type: "APPEND_RESULTS",
 		results
+	}),
+
+	appendError: message => ({
+		type: "APPEND_ERROR",
+		message,
 	})
 }
