@@ -5,14 +5,15 @@ const {
 	popHorizon,
 	finishCrawl,
 	appendResults,
-	appendHorizon
+	appendHorizon,
+  appendVisited,
 } = require('../actions.js');
 
 const crawl = ({ dispatch, getState }) => {
-	const { 
-		horizon: { 
+	const {
+		horizon: {
 			found: {
-				url 
+				url
 			}
 		}
 	} = getState();
@@ -25,9 +26,9 @@ const handleErr = (url, dispatch) => err => {
 }
 
 const handleBody = (dispatch, getState) => (body, uri) => {
-	const { 
-		parse, 
-		horizon: { 
+	const {
+		parse,
+		horizon: {
 			visited,
 			count,
 			limit
@@ -44,6 +45,7 @@ const handleBody = (dispatch, getState) => (body, uri) => {
 	      unvistedLinks    = uniqLinks.filter(link => !visited.has(link));
 
 	dispatch(appendResults(newResults));
+  dispatch(appendVisited(unvistedLinks));
 	if (!limit || count < limit) {
 		dispatch(appendHorizon(unvistedLinks));
 	}

@@ -6,7 +6,7 @@ module.exports = (state = Immutable.Set(), action) => {
 			return state.add(action.url);
 
 		case "SET_HORIZON":
-		case "APPEND_HORIZON":
+		case "APPEND_VISITED":
 			return action.horizon.reduce((acc, url) => (
 				acc.add(url)
 			), state);
