@@ -2,6 +2,7 @@ const request = require('request-promise');
 const parseMatches = require('../../lib/parse.js');
 
 const {
+	CRAWL,
 	finishCrawl,
 	appendResults,
 	appendHorizon,
@@ -40,19 +41,20 @@ const handleBody = (dispatch, getState) => (body, uri) => {
 	      uniqResults      = [...new Set(found)],
 	      newResults       = uniqResults.filter(result => !results.set.has(result)),
 	      uniqLinks        = [...new Set(links)],
-	      unvisitedLinks    = uniqLinks.filter(link => (
+	      unvisitedLinks   = uniqLinks.filter(link => (
           !horizon.visited.has(link) && !horizon.set.has(link)
         ));
 
 	dispatch(appendResults(newResults));
-  dispatch(appendHorizon(unvisitedLinks));
-
+	if (horizon.set.size < horizon.limit) {
+		dispatch(appendHorizon(unvisitedLinks));
+	}
 	dispatch(finishCrawl());
 }
 
 module.exports = store => next => action => {
 	switch (action.type) {
-		case "CRAWL":
+		case CRAWL:
 			crawl(store);
 			break;
 	}

@@ -1,4 +1,5 @@
 const {
+	APPLY_SETTINGS,
 	setSwarmSize,
 	setParseRegex,
 	setParseMapper,
@@ -16,7 +17,7 @@ const apply = ({ dispatch }, { settings }) => {
 
 module.exports = store => next => action => {
 	switch (action.type) {
-		case "APPLY_SETTINGS":
+		case APPLY_SETTINGS:
 			apply(store, action);
 			break;
 	}

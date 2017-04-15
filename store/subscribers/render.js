@@ -1,5 +1,6 @@
 const _ = require('lodash');
 
+const { fps } = require('../../config');
 const clear = () => process.stdout.write('\033[2J');
 
 const renderList = (idx, list) => {
@@ -22,6 +23,7 @@ const renderAllResults = (results) => {
 
 module.exports = ({ getState }) => {
 	let finished = false;
+	const startTime = Date.now();
 
 	const render = () => {
 		const {
@@ -34,6 +36,10 @@ module.exports = ({ getState }) => {
 			}
 		} = getState();
 
+		const now = Date.now();
+		const msPassed = (now - startTime)
+		const crawlsPerSecond = _.floor(horizon.visited.size / (msPassed / 1000), 1);
+
 		if (results.target > results.set.size) {
 			clear();
 
@@ -45,6 +51,7 @@ module.exports = ({ getState }) => {
 			console.log(`Horizon Size  : ${ horizon.set.size }`);
 			console.log(`Visited Count : ${ horizon.visited.size }`);
 			console.log(`Result Count  : ${ results.set.size }`);
+			console.log(`Crawls / Sec  : ${ crawlsPerSecond }`);
 		}
 
 		if (results.target <= results.set.size && !finished) {
@@ -54,18 +61,5 @@ module.exports = ({ getState }) => {
 		}
 	}
 
-	return _.throttle(render, 30);
+	return _.throttle(render, Math.floor(1000 / fps));
 }
-
-// EX:
-// result[...]
-// result[5]
-// result[4]
-// result[3]
-// result[2]
-// result[1]
-// result[0]
-// -------------------------------------
-// Crawler Count : 20
-// Horizon Size  : 2031
-// Result Count  : 123

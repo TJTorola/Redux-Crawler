@@ -1,9 +1,13 @@
 const { combineReducers } = require('redux');
 const Immutable = require('immutable');
+const {
+	SET_TARGET_RESULTS,
+	APPEND_RESULTS,
+} = require('../actions');
 
 const target = (state = 100, action) => {
 	switch (action.type) {
-		case "SET_TARGET_RESULTS":
+		case SET_TARGET_RESULTS:
 			return action.target;
 	}
 	return state;
@@ -11,7 +15,7 @@ const target = (state = 100, action) => {
 
 const set = (state = Immutable.Set(), action) => {
 	switch (action.type) {
-		case "APPEND_RESULTS":
+		case APPEND_RESULTS:
 			return action.results.reduce((set, result) => (
 				set.add(result)
 			), state);
@@ -21,7 +25,7 @@ const set = (state = Immutable.Set(), action) => {
 
 const list = (state = null, action) => {
 	switch (action.type) {
-		case "APPEND_RESULTS":
+		case APPEND_RESULTS:
 			return action.results.reduce((next, val) => ({
 				next, val
 			}), state);
